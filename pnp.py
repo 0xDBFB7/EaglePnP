@@ -9,11 +9,13 @@ output_file = open('./output.gcode','w+')
 feeder_offsets = [0,0,20]
 
 #nozzle_locations defines the x,y,z coordinates that the nozzle will pick the part up from, relative to the feeder offsets defined above.
-feeder_dict = {'0.1uf': {"nozzle_locations":[71.0,27.6,0], "index_locations":[71.0,27.6,0], "index_distances": [0,5,0]}, \
-		    '1k': {"nozzle_locations":[71.0,27.6,0], "index_locations":[71.0,27.6,0], "index_distances": [0,5,0]}}
+feeder_dict = {'0.1uf': {"current_part": 0, "part_number": 6, "nozzle_start":[71.0,27.6,0], "nozzle_end", "nozzle_locations":[], "index_locations":[71.0,27.6,0], "index_distances": [0,5,0]}, \
+		    '1k': {"current_part": 0 "nozzle_locations":[71.0,27.6,0], "index_locations":[71.0,27.6,0], "index_distances": [0,5,0]}}
 
 board_offsets = [0,-20,20]
 
+
+index_feeder = 0
 
 safe_height = 35
 index_register_feedrate = 300
@@ -22,8 +24,6 @@ rotate_feedrate = 10
 rapid_feedrate = 5000
 rapid_with_part_feedrate = 3000
 ##############################
-
-#current_angle = 0
 
 def pick(part, offset):
     output_file.write('G00 F{} Z{};\n'.format(rapid_feedrate,safe_height)) ##Raise to a safe height
